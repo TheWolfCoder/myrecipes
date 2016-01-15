@@ -1,4 +1,4 @@
-<%= render 'shared/page_title', title: "All Recipes" %>
+<%= render 'shared/page_title', title: "Recipes for: " + @style.name + " food" %>
 
 <ul class="nav nav-tabs">
   <li class="active">
@@ -9,21 +9,19 @@
   </li>
 </ul>
 
+<%= will_paginate @recipes %>
 
-<%= will_paginate %>
-
-<% @recipes.each do |recipe| %>
+<% @style.recipes.each do |recipe| %>
   <div class="row">
       
-      
-      <div class="col-md-2">
+     <div class="col-md-2">
         
         <section class="chef_info center">
          <%= link_to gravatar_for(recipe.chef, size: 100), chef_path(recipe.chef) %>
          <h5>Chef name: <%= recipe.chef.chefname %></h5>
         </section>
        </div>
-  
+
     <div class="col-lg-6 well">
      <h4><%= link_to recipe.name, recipe_path(recipe) %></h4>
      <p><%= recipe.summary %></p>
@@ -50,4 +48,4 @@
   </div>
 <% end %>
 
-<%= will_paginate %>
+<%= will_paginate @recipes %>
