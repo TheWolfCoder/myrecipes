@@ -2,12 +2,12 @@
       <div class="container">
         <%= link_to "myRecipes", root_path, class: "btn btn-lg btn-success", id: "logo" %>
         
-        <div class="nav_item">
+<!--        <div class="nav_item">
           <%= link_to "create new recipe", "/reviews", class: "btn btn-default btn-warning" %>
         </div>
         <div class="nav_item">
           <%= link_to "pasta", "/pasta", class: "btn btn-default btn-warning" %>
-        </div>
+        </div>-->
         <% if logged_in? %>
         <div class="nav_item">
             <%= link_to "New recipe", new_recipe_path, class: "btn btn-default btn-warning" %>
