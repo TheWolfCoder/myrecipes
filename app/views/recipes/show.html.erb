@@ -14,7 +14,7 @@
      <div class="show_recipe">
       <%= image_tag(@recipe.picture.url, class: "gravatar") if @recipe.picture? %>   
     </div>
-      <% if current_user.admin? %>
+      <% if logged_in? and current_user.admin? %>
        <%= link_to "[Delete Recipe]", @recipe, method: :delete, data: {confirm: "Are you sure?" } %>
       <% end %>
      <div class="well">
