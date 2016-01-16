@@ -1,0 +1,71 @@
+<%= render 'shared/page_title', title: "All Reviews" %>
+
+<ul class="nav nav-tabs">
+  <li>
+    <%= link_to "Recipes", recipes_path %>
+  </li>
+  <li>
+    <%= link_to "Chefs", chefs_path %>
+  </li>
+   <li class="active">
+    <%= link_to "Reviews", reviews_path %>
+  </li>
+</ul>
+
+
+<%= will_paginate @reviews %>
+
+<% @reviews.each do |review| %>
+  <div class="row">
+      
+      
+      <div class="col-md-2">
+        
+        <section class="chef_info center">
+         <%= link_to gravatar_for(review.chef, size: 100), chef_path(review.chef) %>
+         <h5>Chef name: <%= review.chef.chefname %></h5>
+        </section>
+       </div>
+  
+    <div class="col-lg-6 well">
+     <h4><%= link_to review.title, review_path(review) %></h4>
+     <p><%= review.review_text %></p>
+        <span class="quiet"><small>created: <%= time_ago_in_words(review.created_at) %> ago, </small></span>
+        <span class="quiet"><small>updated <%= time_ago_in_words(review.updated_at) %> ago</small></span>
+        <p>Rating:</p>
+          <% if review.rating == 5 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <span class="fa fa-star" data-rating="3"></span>
+    <span class="fa fa-star" data-rating="4"></span>
+    <span class="fa fa-star" data-rating="5"></span>
+    <% end %>
+    
+    <% if review.rating == 4 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <span class="fa fa-star" data-rating="3"></span>
+    <span class="fa fa-star" data-rating="4"></span>
+    <% end %>
+    
+    <% if review.rating == 3 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <span class="fa fa-star" data-rating="3"></span>
+    <% end %>
+    
+    <% if review.rating == 2 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <% end %>
+    
+    <% if review.rating == 1 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <% end %>
+     </p>
+    </div>
+    
+  </div>
+<% end %>
+
+<%= will_paginate %>

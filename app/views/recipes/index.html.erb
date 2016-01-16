@@ -45,11 +45,27 @@
             <icon class="glyphicon glyphicon-thumbs-down"/>
          <% end %>
       </div>
+  
+  <h3>Reviews:</h3>      
+  <% recipe.reviews.each do |review| %>        
+    <ul class="media-list">
+      <li class="media">
+         <a class="pull-left" href="#">
+      <img class="media-object" data-src=<%= image_tag(recipe.picture.url, size: "64x64", class: "gravatar") if recipe.picture? %>>
+    </a>
+    <div class="media-body">
+      <h4 class="media-heading"> <%= review.title %></h4>
+      <%= review.review_text %>
+    </div>
+  </li>
+</ul>
+  <% end %>
     </div>
     <div class="col-md-4">
       <%= image_tag(recipe.picture.url, size: "250x150", class: "gravatar") if recipe.picture? %>
     </div>
     
+
     
   </div>
 <% end %>

@@ -4,6 +4,8 @@ $navbar-default-color: $light-orange;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 #logo {
   margin-top: 10px;
@@ -118,3 +120,5 @@ span.picture {
   margin-top: 20px;
   
 }
+
+

@@ -1,0 +1,56 @@
+
+
+<div class="row">
+   <div class="well col-md-8 col-md-offset-2">
+     <%= form_for @review do |f| %> 
+        <%= f.label :title %>:
+        <%= f.text_field :title %>
+
+        <%= f.label "Recipe Chosen For Review:" %>
+        <%= f.collection_select :recipe_id, Recipe.all, :id, :name do |mi| %>
+        <% end %>
+        
+        <%= f.label "Review:" %>
+        <%= f.text_area :review_text, rows: 20 %>
+        
+        <%= f.label :rating %>
+        
+  <div class="star-rating" id="star-rating-2"> <span class="fa fa-star-o" data-rating="1">1</span>
+ <span class="fa fa-star-o" data-rating="2">2</span>
+ <span class="fa fa-star-o" data-rating="3">3</span>
+ <span class="fa fa-star-o" data-rating="4">4</span>
+ <span class="fa fa-star-o" data-rating="5">5</span>
+
+    <input type="hidden" name="rating-stars" class="rating-value" value=1 />
+    <span class="rating-value">
+    <%= f.hidden_field :rating %>
+    </span>
+</div>
+
+      
+        <%= f.submit(@review.new_record? ? 'Create Review' : 'Edit Review', class: "btn btn-success") %>  
+     <% end %>
+  </div>
+</div>
+
+
+s
+<script>
+var $star_rating = $('.star-rating .fa');
+
+var SetRatingStar = function () {
+    return $star_rating.each(function () {
+        if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+            return $(this).removeClass('fa-star-o').addClass('fa-star');
+        } else {
+            return $(this).removeClass('fa-star').addClass('fa-star-o');
+        }
+    });
+};
+
+$star_rating.on('click', function () {
+    $(this).parent().find('input').val($(this).data('rating')); // <- edited line
+    return SetRatingStar();
+});
+
+</script>

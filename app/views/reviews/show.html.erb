@@ -1,0 +1,64 @@
+<%= render 'shared/page_title', title: @review.title %>
+<div class="row">
+   <div class="col-md-4 pull-right">
+     <%= link_to gravatar_for(@review.chef, size: 200), chef_path(@review.chef) %>
+     <p>
+       <h5>Brought to you by: <%= @review.chef.chefname %></h5>
+     </p>
+   </div>
+   <div class="col-md-8">
+     <% if logged_in? and @review.chef == current_user || current_user.admin? %>
+     <%= link_to "Edit this Review", edit_review_path(@review), class: "btn btn-success pull-right" %> 
+      <% end %>
+     <div class="show_recipe">
+      <%= image_tag(@review.recipe.picture.url, class: "gravatar") if @review.recipe.picture? %>   
+    </div>
+      <% if logged_in? and current_user.admin? %>
+       <%= link_to "[Delete Review]", @review, method: :delete, data: {confirm: "Are you sure?" } %>
+      <% end %>
+     <div class="well">
+      <strong>Recipe:</strong>
+      <%= simple_format(@review.recipe.name) %> 
+      <p>
+      <strong>Review:</strong>
+      </p>
+      <%= simple_format(@review.review_text) %>
+      
+      <stong>Rating:</stong>
+      <!--<h3><%= @review.rating %></h3>-->
+  
+    <% if @review.rating == 5 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <span class="fa fa-star" data-rating="3"></span>
+    <span class="fa fa-star" data-rating="4"></span>
+    <span class="fa fa-star" data-rating="5"></span>
+    <% end %>
+    
+    <% if @review.rating == 4 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <span class="fa fa-star" data-rating="3"></span>
+    <span class="fa fa-star" data-rating="4"></span>
+    <% end %>
+    
+    <% if @review.rating == 3 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <span class="fa fa-star" data-rating="3"></span>
+    <% end %>
+    
+    <% if @review.rating == 2 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <% end %>
+    
+    <% if @review.rating == 1 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <% end %>
+    
+    
+    
+</div>
+
+<h5><%= link_to 'Return to Reviews listing', reviews_path, class: "btn btn-warning btn-small" %>   </h5>
