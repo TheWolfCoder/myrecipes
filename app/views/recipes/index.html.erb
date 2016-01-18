@@ -28,6 +28,19 @@
        </div>
   
     <div class="col-lg-6 well">
+    <% reviewIt = recipe.reviews.find_by(chef: current_user) %> 
+      <% if !reviewIt.nil? %> 
+      <div class="pull-right">
+       <span class="label label-warning">Recipe already reviewed by Logged in User</span>
+      </div>
+      <% else %>
+        <% if reviewIt.nil? and logged_in? %>
+       <div class="pull-right">
+         <%= link_to "Create a new review for this recipe", new_review_path, :recipe_select => @recipe, class: "btn btn-default btn-success" %> 
+       </div>
+        <% end %>
+    <% end %>
+    <br>
      <h4><%= link_to recipe.name, recipe_path(recipe) %></h4>
      <p> <%= recipe.summary %></p>
      <% if recipe.styles.any? %>
