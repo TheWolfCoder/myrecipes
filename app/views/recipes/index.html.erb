@@ -7,6 +7,9 @@
   <li>
     <%= link_to "Chefs", chefs_path %>
   </li>
+    <li>
+    <%= link_to "Reviews", reviews_path %>
+  </li>
 </ul>
 
 
@@ -26,7 +29,7 @@
   
     <div class="col-lg-6 well">
      <h4><%= link_to recipe.name, recipe_path(recipe) %></h4>
-     <p><%= recipe.summary %></p>
+     <p> <%= recipe.summary %></p>
      <% if recipe.styles.any? %>
      <p>Style: <%= render recipe.styles %></p>
      <% end %>
@@ -45,21 +48,62 @@
             <icon class="glyphicon glyphicon-thumbs-down"/>
          <% end %>
       </div>
-  
-  <h3>Reviews:</h3>      
-  <% recipe.reviews.each do |review| %>        
+  <br><br>
+<% if recipe.reviews.exists? %>  
+  <h4>Reviews:</h4>      
+  <% recipe.reviews.each_with_index do |review, i| %>        
     <ul class="media-list">
       <li class="media">
          <a class="pull-left" href="#">
-      <img class="media-object" data-src=<%= image_tag(recipe.picture.url, size: "64x64", class: "gravatar") if recipe.picture? %>>
+    <%   break if i == 3 %>     
+      <img class="media-object" <%= link_to gravatar_for(review.chef, size: "64x64", class: "gravatar") %>
+       <span class="quiet"><small>author: <%= review.chef.chefname %></small></span>
     </a>
     <div class="media-body">
-      <h4 class="media-heading"> <%= review.title %></h4>
-      <%= review.review_text %>
+      <h3 class="media-heading"><small><%= link_to review.title, review_path(review) %></small></h3>
+      <p><small><%= review.review_text %></small></p>
+    <h5></small>Rating:</small></h5>
+    
+  <% if review.rating == 5 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <span class="fa fa-star" data-rating="3"></span>
+    <span class="fa fa-star" data-rating="4"></span>
+    <span class="fa fa-star" data-rating="5"></span>
+    <% end %>
+    
+    <% if review.rating == 4 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <span class="fa fa-star" data-rating="3"></span>
+    <span class="fa fa-star" data-rating="4"></span>
+    <% end %>
+    
+    <% if review.rating == 3 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <span class="fa fa-star" data-rating="3"></span>
+    <% end %>
+    
+    <% if review.rating == 2 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <% end %>
+    
+    <% if review.rating == 1 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <% end %>
+    
     </div>
   </li>
 </ul>
   <% end %>
+  <% else %>
+  <h4><em>There are currently no reviews for this recipe</em></h4>
+<% end %>  
+      <% if recipe.reviews.size > 3 %>
+         <%= link_to "Click for more reviews...", recipe_path(recipe) %>
+      <% end %>
     </div>
     <div class="col-md-4">
       <%= image_tag(recipe.picture.url, size: "250x150", class: "gravatar") if recipe.picture? %>

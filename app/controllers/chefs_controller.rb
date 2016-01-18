@@ -15,6 +15,7 @@ class ChefsController < ApplicationController
     @chef = Chef.new(chef_params)
         
     if @chef.save
+      ChefMailer.signup_confirmation(@chef)
       flash[:success] = "Your account was created successfully!"
       session[:chef_id] = @chef.id
       redirect_to recipes_path 
@@ -29,6 +30,7 @@ class ChefsController < ApplicationController
   
   def show
       @recipes = @chef.recipes.paginate(page: params[:page], per_page: 3)
+      @reviews = @chef.reviews.paginate(page: params[:page], per_page: 3)
   end
   
   def update

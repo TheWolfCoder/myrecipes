@@ -36,3 +36,56 @@
   </div>
   <% end %>
   
+  <div class="row">
+ <div class="col-md-4 col-md-offset-4 center">
+  <h3><em>Reviews:</em></h3>
+    <%= will_paginate @reviews %>
+ </div>
+</div>
+  
+  <% @reviews.each do |review| %>
+
+<div class="row">
+    <div class="col-lg-6 well col-lg-offset-3">
+     <h4>Recipe: <%= link_to review.recipe.name, recipe_path(review.recipe) %></h4>
+     <h4><%= link_to review.title, review_path(review) %></h4>
+     <p><%= review.review_text %></p>
+     <p>
+        <span class="quiet"><small>created: <%= time_ago_in_words(review.created_at) %> ago, </small></span>
+        <span class="quiet"><small>updated <%= time_ago_in_words(review.updated_at) %> ago</small></span>
+     </p>
+  
+    <% if review.rating == 5 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <span class="fa fa-star" data-rating="3"></span>
+    <span class="fa fa-star" data-rating="4"></span>
+    <span class="fa fa-star" data-rating="5"></span>
+    <% end %>
+    
+    <% if review.rating == 4 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <span class="fa fa-star" data-rating="3"></span>
+    <span class="fa fa-star" data-rating="4"></span>
+    <% end %>
+    
+    <% if review.rating == 3 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <span class="fa fa-star" data-rating="3"></span>
+    <% end %>
+    
+    <% if review.rating == 2 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <span class="fa fa-star" data-rating="2"></span>
+    <% end %>
+    
+    <% if review.rating == 1 %>
+    <span class="fa fa-star" data-rating="1"></span>
+    <% end %>
+    
+    </div>
+  </div>
+  <% end %>
+  
